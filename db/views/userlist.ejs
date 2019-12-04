@@ -2,7 +2,6 @@
 <html>
   <head>
     <title>User List</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
     <h1>User List (For Development)</h1>
@@ -10,8 +9,7 @@
       <%
         var list = '';
         for (i = 0; i < userlist.length; i++) {
-          console.log("here");
-          list += '<li>' + userlist[i].username +', '+ userlist[i].password+', ' + userlist[i].email +'</li>';
+          list += '<li>' + JSON.stringify(userlist[i])+'</li>';
         }
       %>
       <%- list %>
