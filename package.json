@@ -11,8 +11,9 @@
     "express-handlebars": "^3.0.0",
     "http-errors": "~1.6.2",
     "mongodb": "^3.1.13",
+    "ejs": "~2.5.7",
     "monk": "^6.0.6",
-    "morgan": "~1.6.1",
+    "morgan": "~1.9.1",
     "styled-components": "^4.4.1"
   }
 }

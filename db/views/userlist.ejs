@@ -5,12 +5,13 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1>User List</h1>
+    <h1>User List (For Development)</h1>
     <ul>
       <%
         var list = '';
         for (i = 0; i < userlist.length; i++) {
-          list += '<li><a href="mailto:' + userlist[i].email + '">' + userlist[i].username + '</a></li>';
+          console.log("here");
+          list += '<li>' + userlist[i].username +', '+ userlist[i].password+', ' + userlist[i].email +'</li>';
         }
       %>
       <%- list %>

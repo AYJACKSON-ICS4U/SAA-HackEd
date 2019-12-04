@@ -6,11 +6,6 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-/* GET Hello World page. */
-router.get('/helloworld', function(req, res) {
-    res.render('helloworld', { title: 'Hello, World!' });
-});
-
 /* GET Userlist page. */
 router.get('/userlist', function(req, res) {
     var db = req.db;
@@ -29,13 +24,13 @@ router.get('/newuser', function(req, res) {
 
 /* POST to Add User Service */
 router.post('/adduser', function(req, res) {
-
     // Set our internal DB variable
     var db = req.db;
 
     // Get our form values. These rely on the "name" attributes
     var userName = req.body.username;
-    var userEmail = req.body.useremail;
+    var userEmail = req.body.useremail
+    var userPass = req.body.userpass;
 
     // Set our collection
     var collection = db.get('usercollection');
@@ -43,7 +38,8 @@ router.post('/adduser', function(req, res) {
     // Submit to the DB
     collection.insert({
         "username" : userName,
-        "email" : userEmail
+        "email" : userEmail,
+        "password": userPass,
     }, function (err, doc) {
         if (err) {
             // If it failed, return error
