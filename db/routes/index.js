@@ -141,6 +141,16 @@ function deleteUser(userId){
     });
 }
 
+
+function getFlashset(userId, setId){
+}
+
+function getSets(userId){
+}
+
+function getFlashcard(userId, setId, cardId){
+}
+
 //TODO: REMOVE
 router.get('/newuser', function(req, res) {
     res.render('newuser', { title: 'Add New User' });
