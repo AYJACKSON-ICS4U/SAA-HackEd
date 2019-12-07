@@ -5,8 +5,24 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 // New Code
-var monk = require('monk');
-var db = monk('localhost:27017/db');
+// var mongo = require('mongodb');
+// var monk = require('monk');
+// var db = monk('mongodb+srv://sabrina-button:YOtesTSYyMfkfq7n@hackeddb-3nbl6.azure.mongodb.net/test?retryWrites=true&w=majority');
+// db.then(() =>{
+//   console.log("connection success");
+// }).catch((e)=>{
+//   console.error("Error !",e);
+// });
+
+const MongoClient = require('mongodb').MongoClient;
+const uri = "mongodb+srv://sabrina-button:<password>@hackeddb-3nbl6.azure.mongodb.net/test?retryWrites=true&w=majority";
+const db = new MongoClient(uri, { useNewUrlParser: true });
+db.connect(err => {
+  const collection = db.db("db").collection("usercollection");
+   console.log("Connection success. Retrieved Collection.");
+   // perform actions on the collection object
+  db.close();
+});
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');

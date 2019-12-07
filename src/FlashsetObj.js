@@ -16,6 +16,13 @@ export default class FlashsetdObj{
         updateFlashset(this);
     }
 
+    removeCard(id){
+        this.cards = this.cards.filter(function( obj ) {
+            return obj.id === id;
+        });
+        updateFlashset(this);
+    }
+
     deleteSet(){
         deleteFlashset(this);
     }

@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
 /* GET Userlist page. TODO: DELETE */
 router.get('/userlist', function(req, res) {
     var db = req.db;
-    var collection = db.get('usercollection');
+    var collection = db.db("db").collection("usercollection");
     collection.find({},{},function(e,docs){
         res.render('userlist', {
             "userlist" : docs
@@ -18,21 +18,21 @@ router.get('/userlist', function(req, res) {
 });
 
 //push a new user to db
-export default function newUser(username, password, email){
+function newUser(username, password, email){
     router.post('/adduser', function(req, res) {
         // Set our internal DB variable
         var db = req.db;
-    
+        
         // Get our form values. These rely on the "name" attributes
         var userName = username;
         var userEmail = email
         var userPass = password;
     
         // Set our collection
-        var collection = db.get('usercollection');
-    
+        var collection = db.db("db").collection("usercollection");
+
         // Submit to the DB
-        collection.insert({
+        collection.insertOne({
             "login": {
             "username" : userName,
             "email" : userEmail,
@@ -43,7 +43,7 @@ export default function newUser(username, password, email){
         }, function (err, doc) {
             if (err) {
                 // If it failed, return error
-                res.send("There was a problem adding the information to the database.");
+                res.send("There was a problem adding the information to the database: " + err);
             }
             else {
                 // And forward to success page
@@ -54,7 +54,7 @@ export default function newUser(username, password, email){
 }
 
 //verify user logging in
-export default function verifyLogin(username, password){
+function verifyLogin(username, password){
     router.get('/userlist', function(req, res) { 
         var db = req.db;
 
@@ -72,7 +72,7 @@ export default function verifyLogin(username, password){
     });
 }
 
-export default function newFlashcard(flashcard){
+function newFlashcard(flashcard){
     router.post('/addcard', function(req, res) {
         // Set our internal DB variable
         var db = req.db;
@@ -82,7 +82,7 @@ export default function newFlashcard(flashcard){
 
         // Submit to the DB
         collection.insert({
-            flashcard
+            "title": flashcard.title
         }, function (err, doc) {
             if (err) {
                 // If it failed, return error
@@ -97,7 +97,7 @@ export default function newFlashcard(flashcard){
     });
 }
 
-export default function newFlashSet(flashset, userId){
+function newFlashSet(flashset){
     router.post('/addset', function(req, res) {
         // Set our internal DB variable
         var db = req.db;
@@ -105,7 +105,7 @@ export default function newFlashSet(flashset, userId){
         var collection = db.get('usercollection');
     
         // Submit to the DB
-        collection.update({ _id: userId },
+        collection.update({ _id: ObjectId("5de8172f92c68afb85523163") },
         {$push: {sets: flashset}} , function (err, doc) {
             if (err) {
                 // If it failed, return error
@@ -119,7 +119,7 @@ export default function newFlashSet(flashset, userId){
     });
 }
 
-export default function updateFlashSet(flashset){
+function updateFlashSet(flashset){
     router.post( 'updateset', function (req,res) {
 var collection = db.get('usercollection').find({"_id": ObjectId(flashset.owner)}).sets.find({"_id": ObjectId(flashset.id)});
     collection.update({ flashset }, function (err, doc) {
@@ -135,8 +135,7 @@ var collection = db.get('usercollection').find({"_id": ObjectId(flashset.owner)}
     }); 
    
 }
-
-export default function deleteFlashcard(flashcard){
+function deleteFlashcard(flashcard){
     var url = '/deletecard';
     router.get(url, function(req, res) { 
         var db = req.db;
@@ -150,7 +149,7 @@ export default function deleteFlashcard(flashcard){
     });
 }
 
-export default function deleteFlashSet(flashset){
+function deleteFlashSet(flashset){
     var url = '/deleteset';
     router.get(url, function(req, res) { 
         var db = req.db;
@@ -164,7 +163,7 @@ export default function deleteFlashSet(flashset){
     });
 }
 
-export default function deleteUser(userId){
+function deleteUser(userId){
     var url = '/deleteuser/' + userId;
     router.get(url, function(req, res) { 
         var db = req.db;
@@ -192,7 +191,7 @@ export default function deleteUser(userId){
 //TODO: REMOVE
 router.get('/newuser', function(req, res) {
     res.render('newuser', { title: 'Add New User' });
-    newFlashSet({'title':'test'},'5de8172f92c68afb85523163');
+    newUser("Rebecca Black","itsFrid4y!","yourgalrebecca@gmail.com");
 });
 
 
