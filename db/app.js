@@ -17,25 +17,26 @@ const connector = () =>{
 }
 
 /****** CREATE ******/ 
-async function createSet(title, owner) {
+async function createSet(title, description, owner) {
   connector();
   User.findById(owner).exec((err, docc) => {
     docc.sets.push(new Set({
       title,
+      description,
       owner
     }))
     docc.save();
   })
 }
 
-async function createCard(title, back, front, set, owner) {
+async function createCard( back, front, set, owner) {
   connector();
 
   User.findById(owner).exec((err, docc) => {
     var pos = docc.sets.map( curset => {return curset._id}).indexOf(set);
 
     docc.sets[pos].cards.push(
-      new Card({title,
+      new Card({
         back,
         front,
         set,
@@ -64,17 +65,18 @@ async function findUser(username) {
 }
 
 //NEEDS TO BE FIXED
-async function findCard(owner, set, title) {
+async function findCard(owner, set, id) {
   connector();
-    await User.findOne({_id:owner},
-    {'sets': {$elemMatch: { 'cards':  
-          {$elemMatch: 
-              {'title': title
-            }
-          }
-        }
-      }
-    })
+    // await User.findOne({_id:owner},
+    // {'sets': {$elemMatch: { 'cards':  
+    //       {$elemMatch: 
+    //           {'title': title
+    //         }
+    //       }
+    //     }
+    //   }
+    // }
+    //)
 }
 
 //NEEDS TO BE FIXED
@@ -95,9 +97,9 @@ async function deleteUser(username) {
 }
 
 //will work once others do
-async function deleteCard(owner, set, title) {
+async function deleteCard(owner, set, id) {
   connector();
-  var toDel = await findCard(owner, set, title).then((response) => {
+  var toDel = await findCard(owner, set, id).then((response) => {
 });
 
   toDel.deleteOne();
@@ -111,14 +113,24 @@ async function deleteSet(owner, title) {
 
 /****** VERIFICATION ******/
 async function verifyLogin(username, password) {
+  //find this user and their password
+    var thisUser = await findUser(username);
+    var corepass = thisUser.login.password;
 
+    //if their password is correct then return the user to the frontend, if not return 0
+    if(corepass = password){
+      return thisUser;
+    }
+    else{
+      return 0;
+    }
 }
 
 /****** TESTING ******/
 //createCard("testcard", "back", "front", "5ded7dcc39f3c03a3d23b517", "5ded794e5aadea8c6d4724ec")
-findCard("5ded794e5aadea8c6d4724ec", "5ded7dcc39f3c03a3d23b517", "testcard")
+//indCard("5ded794e5aadea8c6d4724ec", "5ded7dcc39f3c03a3d23b517", "testcard")
 //deleteUser("eesr")
-//findSet("5ded794e5aadea8c6d4724ec",  "testset")
+findSet("5ded794e5aadea8c6d4724ec",  "testset")
   .then((response) => {
     console.log(response);
 });

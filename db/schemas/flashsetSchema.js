@@ -6,6 +6,7 @@ const flashsetSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Title is required']
   },
+  decription: String,
   cards: [flashcardSchema],
   owner: {
     type: String,
