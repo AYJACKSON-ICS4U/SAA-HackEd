@@ -41,7 +41,7 @@ img {
   margin-right : 50px;
   background-color: #00BFFF;
   padding: 20px;
-  height: 350px;
+  height: 400px;
   width: 40%;
 }
 
@@ -60,4 +60,13 @@ img {
   padding: 50px;
   margin-left : 200px;
   margin-right: 200px;
+}
+
+.flash_card {
+  padding : 60px;
+  margin-left : 290px;
+}
+
+.next {
+  margin-left: 590px;
 }

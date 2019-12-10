@@ -1,48 +1,58 @@
-import React from 'react';
-import './style.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import background from  './background.png';
+const deck = [];
 
-function App() {
-  function handleClick() {
-    console.log("Clicked!")
+function attachHandler(){
+  document.getElementById("submitButton").addEventListener("click", submit);
+  document.getElementById("loginButton").addEventListener("click", login);
+  document.getElementById("createDeckButton").addEventListener("click", createDeck);
+  document.getElementById("addToDeck").addEventListener("click", addToDeck);
+  document.getElementById("done").addEventListener("click", addNewCard(event));
+
+}
+function createDeck (){
+  const deck = {
+    deckName : document.getElementById("deckName").value, 
+    deckDescription : document.getElementById("deckDescription").value
   }
-
-  return (
-    <div>
-      <div className = "header">
-        <h1 className="text-center">FlashTime</h1>
-      </div>
-      <img src = {background} ></img>
-      <div className = "text-center">
-    </div>
-    <div className = "form-container">
-      <div className = "font">
-      <h3 className = "text-center" >SIGN UP</h3>
-    </div>
-    <div class = "form">
-        <form>
-            <div className="form-group">
-                <div className = "font">
-              <label for="email"><h4>Email address</h4></label>
-              </div>
-              <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"></input>
-            </div>
-            <div className="form-group">
-                <div className = "font">
-              <label for="password"><h4>Password</h4></label>
-              </div>
-              <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password"></input>
-            </div>
-            <a href="homepage.html" className="btn btn-info" type = "button" role="submit" aria-pressed="true">Submit</a>
-            <a href="login.html" onClick={handleClick()}className="btn btn-info" type = "button" role="submit" aria-pressed="true">Login</a>
-          </form>
-       </div>
-      </div>
-    </div>
-  
-    
-  );
+  decks.push(deck);
+  return deck; 
 }
 
-export default App;
+function addNewCard(event){
+  event.preventDefault();
+  var emptyTerm = "";
+  var emptyDefinition = "";
+  document.getElementById("term").value = emptyTerm;
+  document.getElementById("definition").value = emptyDefinition;
+}
+
+function addToDeck() {
+  const card = {
+    term : document.getElementById("term").value, 
+    definition : document.getElementById("definition").value
+  }
+  deck.push(card);
+  return card; 
+}
+
+function login(){
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value; 
+  return {
+    email, password
+  } 
+}
+function submit(){
+  const username = document.getElementById("username").value; 
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value; 
+  return {
+    username, email, password
+  }
+}
+
+//function getTerm (term) {
+ // var term = ??
+ 
+//}
+
+//get term, get def, 
