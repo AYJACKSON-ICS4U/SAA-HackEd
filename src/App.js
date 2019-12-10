@@ -1,32 +1,58 @@
-import React from 'react';
-import logo from './logo.svg';
-import {verifyLogin, deleteSet, deleteCard, deleteUser, createSet, createUser, createCard, getUserData} from '../db/app.js';
-import './App.css';
+const deck = [];
 
+function attachHandler(){
+  document.getElementById("submitButton").addEventListener("click", submit);
+  document.getElementById("loginButton").addEventListener("click", login);
+  document.getElementById("createDeckButton").addEventListener("click", createDeck);
+  document.getElementById("addToDeck").addEventListener("click", addToDeck);
+  document.getElementById("done").addEventListener("click", addNewCard(event));
 
-
-function App() {
-  function handle(){
-    createUser("test", "test!", "test@test.test");
+}
+function createDeck (){
+  const deck = {
+    deckName : document.getElementById("deckName").value, 
+    deckDescription : document.getElementById("deckDescription").value
   }
-  return (
-    <div onClick={handle()} className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  decks.push(deck);
+  return deck; 
 }
 
-export default App;
+function addNewCard(event){
+  event.preventDefault();
+  var emptyTerm = "";
+  var emptyDefinition = "";
+  document.getElementById("term").value = emptyTerm;
+  document.getElementById("definition").value = emptyDefinition;
+}
+
+function addToDeck() {
+  const card = {
+    term : document.getElementById("term").value, 
+    definition : document.getElementById("definition").value
+  }
+  deck.push(card);
+  return card; 
+}
+
+function login(){
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value; 
+  return {
+    email, password
+
+}
+function submit(){
+  const username = document.getElementById("username").value; 
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value; 
+  retur
+    username, email, password
+  }
+}
+
+//function getTerm (term) {
+ // var term = ??
+ 
+//}
+
+//get term, get def, 
