@@ -119,14 +119,17 @@ async function deleteSet(owner, set) {
 //verifies if a users credentials are correct
 async function verifyLogin(username, password) {
   //find this user and their password
-    var thisUser = await findUser(username);
+    var thisUser = await getUserData(username);
     var corepass = thisUser.login.password;
 
     //if their password is correct then return the user to the frontend, if not return 0
-    if(corepass == password){
+    if(corepass === password){
       return thisUser;
     }
     else{
       return 0;
     }
 }
+
+//module.exports = verifyLogin, deleteSet, deleteCard, deleteUser, createSet, createUser, createCard, getUserData
+export {verifyLogin, deleteSet, deleteCard, deleteUser, createSet, createUser, createCard, getUserData}

@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "dbstart": "node ./db/app.js",
+    "dbstart": "node ./src/db/app.js",
     "start": "react-scripts start"
   },
   "dependencies": {
