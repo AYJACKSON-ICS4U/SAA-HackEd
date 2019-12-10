@@ -1,6 +1,6 @@
 import React from 'react';
 import logo from './logo.svg';
-import {verifyLogin, deleteSet, deleteCard, deleteUser, createSet, createUser, createCard, getUserData} from './db/app.js';
+import {verifyLogin, deleteSet, deleteCard, deleteUser, createSet, createUser, createCard, getUserData} from '../db/app.js';
 import './App.css';
 
 
