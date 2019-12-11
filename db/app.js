@@ -48,10 +48,10 @@ app.get("/api/getuserdata/", (req, res) => {
     res.send(status);
 });
 
-//set port to 3001 (TODO: set to any available port)
-var port = 3006;
+//set port
+const PORT = process.env.PORT || 3000;
 
 //listen on the port provided
-http.listen(port, () => {
-  console.log("Listening on port:", port);
+http.listen(PORT, () => {
+  console.log("Listening on port:", PORT);
 });
