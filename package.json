@@ -4,6 +4,8 @@
     "start": "react-scripts start"
   },
   "dependencies": {
+    "cors": "^2.8.5",
+    "http": "^0.0.0",
     "mongodb": "^3.1.13",
     "mongoose": "^5.7.14",
     "monk": "^6.0.6",
