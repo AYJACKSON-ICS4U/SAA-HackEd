@@ -7,7 +7,7 @@ const db = require("./db-comm.js");
 //enable cors
 app.use(cors());
 
-//api calls for each db communication function
+//api calls for each db communication function, uses req params passed in as ?username=<username>
 app.get("/api/createuser/", (req, res) => {
     db.createUser(req.query.username,req.query.email,req.query.password);
     res.send("Created a new user.");
@@ -38,13 +38,15 @@ app.get("/api/deletecard/", (req, res) => {
     res.send("Deleted a card.");
 });
 
-app.get("/api/verifylogin/", (req, res) => {
-    var status = db.verifyLogin(req.query.username, req.query.password);
+app.get("/api/verifylogin/", async (req, res) => {
+    var status = await db.verifyLogin(req.query.username, req.query.password);
+    //send the user info through login back to frontend
     res.send(status);
 });
 
-app.get("/api/getuserdata/", (req, res) => {
-    var status = db.getUserData(req.query.username);
+app.get("/api/getuserdata/", async (req, res) => {
+    var status = await db.getUserData(req.query.username);
+    //send user info back to frontend
     res.send(status);
 });
 
