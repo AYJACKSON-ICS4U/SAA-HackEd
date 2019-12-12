@@ -45,6 +45,9 @@ img {
   width: 40%;
 }
 
+.results{
+  margin-left: 600px;
+}
 .subtitle {
   padding : 30px;
   font-family: 'Faster One', cursive;
@@ -64,9 +67,6 @@ img {
 
 .flash_card {
   padding : 60px;
-  margin-left : 290px;
+  margin-left : 425px;  
 }
 
-.next {
-  margin-left: 590px;
-}
