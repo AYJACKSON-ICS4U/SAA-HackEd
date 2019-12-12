@@ -29,17 +29,25 @@ function createDeck (){
   createSet(deck.deckName, deck.deckDescription, userData._id);
   userData = getUserData(userData.login.username);
   currentDeck = userData.sets.length - 1;
+  
   //decks.push(deck);
  // return deck; 
 }
 
-// function addNewCard(event){
-//   event.preventDefault();
-//   var emptyTerm = "";
-//   var emptyDefinition = "";
-//   document.getElementById("term").value = emptyTerm;
-//   document.getElementById("definition").value = emptyDefinition;
-// }
+//sets[currentDeck].cards.length 
+//front= term, back=definition
+function loadDecks(){
+    for(var i = 0; i < userData.sets.length; i++){
+    deckContainer.innerHTML+=`<div class = "mydeck">
+    <div class="card border-light mb-3" style="max-width: 18rem;">
+        <div class="card-header">Deck Title ${userData.sets[currentDeck].title}</div>
+        <div class="card-body">
+          <p class="card-text">Deck description ${userData.sets[currentDeck].description}</p>
+        </div>
+      </div>
+    </div>`
+    }
+  }
 
 function addToDeck() {
   const card = {
