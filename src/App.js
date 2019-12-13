@@ -1,5 +1,5 @@
-var userData;
-var currentDeck = 0;
+let userData;
+let currentDeck = 0;
 // var username;
 // var email;  
 // var password; 
@@ -9,26 +9,19 @@ var currentDeck = 0;
 // var newDeckTitle;
 // var term; 
 // var definition; 
-var right_answers = 0; 
+let right_answers = 0; 
 
-function attachHandler(){
-  document.getElementById("submitButton").addEventListener("click", submit);
-  document.getElementById("loginButton").addEventListener("click", login);
-  document.getElementById("createDeckButton").addEventListener("click", createDeck);
-  document.getElementById("addToDeck").addEventListener("click", addToDeck);
-  document.getElementById("done").addEventListener("click", addNewCard(event));
-  document.getElementById("right").addEventListener("click", grade);
-}
-
-function createDeck (){
+async function createDeck (){
   const deck = {
     deckName : document.getElementById("deckName").value, 
     deckDescription : document.getElementById("deckDescription").value
   }
 
-  createSet(deck.deckName, deck.deckDescription, userData._id);
-  userData = getUserData(userData.login.username);
+  await createSet(deck.deckName, deck.deckDescription, userData._id).then(async()=>{
+    userData = await getUserData(userData.login.username);
   currentDeck = userData.sets.length - 1;
+  });
+  
   
   //decks.push(deck);
  // return deck; 
@@ -57,14 +50,18 @@ function addToDeck() {
   createCard(card.Definition, card.term, userData.sets[currentDeck]._id,userData._id);
   userData = getUserData(userData.login.username);
 }
-
-function login(){
+ function login(){
+  console.log("here!");
+  async function verfy_login(u, p){
+    userData = await verifyLogin(username,password);
+    console.log(userData);
+    if(userData == 0){
+      alert("Invalid login");
+    }  
+  }
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value; 
-  userData = verifyLogin(username,password)
-  return {
-    username, password
-  } 
+  verify_login(username, password)
 }
 
 function onClick() {
@@ -72,50 +69,56 @@ function onClick() {
   console.log(right_answers);
 
 }
-function submit(){
+async function submit(){
+  console.log("yes");
   const username = document.getElementById("username").value; 
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value; 
 
-  createUser(username,email,password);
-  userData = getUserData(username);
-}
+  await createUser(username,email,password).then(async()=>{
+     userData = await getUserData(username);
+  });
+  document.location = "homepage.html";
+ }
+
 
 async function getUserData(username) {
-  const url = "/api/getuserdata?username=" + username;
+  const url = "https://pacific-inlet-67317.herokuapp.com/api/getuserdata?username=" + username;
   const user = await fetch(url);
   const userInfo = await user.json();
-
   return userInfo;
 }
 
 async function createUser(username, email, password) {
-  const url = "/api/createuser?username=" + username + "&password="+password+"&email="+email;
+  const url = "https://pacific-inlet-67317.herokuapp.com/api/createuser?username=" + username + "&password="+password+"&email="+email;
+  console.log(url);
   const createuser = await fetch(url);
-
-  return createUser;
+  const created = await createuser.text();
+console.log(created);
+  return created;
 }
 
 async function createSet(title, description, owner) {
-  const url = "/api/createset?title=" + title + "&description="+description+"&owner="+owner;
+  const url = "https://pacific-inlet-67317.herokuapp.com/api/createset?title=" + title + "&description="+description+"&owner="+owner;
   const createSet = await fetch(url);
-  return createSet;
+  const createdset = await createSet.json();
+  return createdset;
 }
 
 async function createCard(term, definition, owner) {
-  const url = "/api/createcard?term=" + term + "&definition="+definition+"&owner="+owner;
+  const url = "https://pacific-inlet-67317.herokuapp.com/api/createcard?term=" + term + "&definition="+definition+"&owner="+owner;
   const createCard = await fetch(url);
   return createCard;
 }
 
 async function deleteUser(username) {
-  const url = "/api/deleteuser?username=" + username;
+  const url = "https://pacific-inlet-67317.herokuapp.com/api/deleteuser?username=" + username;
   const deleteUser = await fetch(url);
   return deleteUser;
 }
 
 async function verifyLogin(username, password) {
-  const url = "/api/verifylogin?username=" + username + "&password=" + password;
+  const url = "https://pacific-inlet-67317.herokuapp.com/api/verifylogin?username=" + username + "&password=" + password;
   const verify = await fetch(url);
   return verify;
 }

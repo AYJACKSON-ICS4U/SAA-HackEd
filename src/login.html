@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <head>
   <title>FlashTime</title>
-  <script src="app.js"></script>
+  <script src="App.js"></script>
+  <script src="login.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -9,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css?family=Faster+One&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body onload="attachHandler()">
     <div class = "header">
         <h1 class="text-center">FlashTime</h1>
       </div>
@@ -34,11 +35,11 @@
               </div>
               <input type="password" class="form-control" id="password" placeholder="Password">
             </div>
-            <a href="homepage.html" class="btn btn-info" type = "button" role="submit" id = "loginButton">Login</a>
+            <button class="btn btn-info" type="button" 
+            id="loginButton">Login</button>
           </form>
     </div>
   </div>
   
     </body>
-</body>
 </html>
