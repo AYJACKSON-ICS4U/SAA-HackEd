@@ -8,9 +8,15 @@ const db = require("./db-comm.js");
 app.use(cors());
 
 //api calls for each db communication function, uses req params passed in as ?username=<username>
-app.get("/api/createuser/", (req, res) => {
-    db.createUser(req.query.username,req.query.email,req.query.password);
-    res.send("Created a new user.");
+app.get("/api/createuser/", async (req, res) => {
+     //check that user us unique and that username is alphanumeric and at least 3 chars and that email is an email
+    if(await db.getUserData(req.query.username) == null){
+            db.createUser(req.query.username,req.query.email,req.query.password);
+            res.send("Created a new user.");
+    }
+    else{
+        res.send("invalid");
+    }
 });
 
 app.get("/api/createset/", (req, res) => {

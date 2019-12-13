@@ -59,7 +59,6 @@ module.exports = {
 
   //creates a user in the database
   createUser: async function (username, password, email) {
-    console.log("here");
     connector();
     //create a new user using mongoose User schema
     return new User({
