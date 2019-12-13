@@ -8,16 +8,14 @@ const db = require("./db-comm.js");
 app.use(cors());
 
 //api calls for each db communication function, uses req params passed in as ?username=<username>
-app.get("/api/createuser/", (req, res) => {
-     var rxEmail = new Regex(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
-    var rxUser = new Regex(/(.*[a-z]){3}/i);
-    //check that user us unique and that username is alphanumeric and at least 3 chars and that email is an email
-    if(await db.getUserData() === 0 && rxEmail.test(req.query.email)&&rxUser.test(req.query.email)){
+app.get("/api/createuser/", async (req, res) => {
+     //check that user us unique and that username is alphanumeric and at least 3 chars and that email is an email
+    if(await db.getUserData(req.query.username) == null){
             db.createUser(req.query.username,req.query.email,req.query.password);
             res.send("Created a new user.");
     }
     else{
-        res.send("User was invalid.");
+        res.send("invalid");
     }
 });
 
