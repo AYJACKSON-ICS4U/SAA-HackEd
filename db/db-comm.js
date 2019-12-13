@@ -118,17 +118,19 @@ module.exports = {
 
   //verifies if a users credentials are correct
   verifyLogin: async function(username, password) {
+ connector();
     //find this user and their password
-      var thisUser = await getUserData(username);
-      var corepass = thisUser.login.password;
-
-      //if their password is correct then return the user to the frontend, if not return 0
-      if(corepass === password){
-        return thisUser;
+      var thisUser = await this.getUserData(username);
+      //only continue if could get user
+      if(thisUser !== null){
+        var corepass = thisUser.login.password;
+        //if their password is correct then return the user to the frontend, if not return 0
+        if(corepass === password){
+          return thisUser;
+        }
       }
-      else{
-        return 0;
-      }
+      //return 0 if does not return within if
+      return null;
   }
 }
 
