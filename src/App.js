@@ -1,14 +1,5 @@
 let userData;
-let currentDeck = 0;
-// var username;
-// var email;  
-// var password; 
-// var deckTitle; 
-// var deckDescription; 
-// var newDeckDescription; 
-// var newDeckTitle;
-// var term; 
-// var definition; 
+let currentDeck = 0; 
 let right_answers = 0; 
 
 async function createDeck (){
@@ -21,14 +12,9 @@ async function createDeck (){
     userData = await getUserData(userData.login.username);
   currentDeck = userData.sets.length - 1;
   });
-  
-  
-  //decks.push(deck);
- // return deck; 
+
 }
 
-//sets[currentDeck].cards.length 
-//front= term, back=definition
 function loadDecks(){
     for(var i = 0; i < userData.sets.length; i++){
     deckContainer.innerHTML+=`<div class = "mydeck">
@@ -50,18 +36,16 @@ function addToDeck() {
   createCard(card.Definition, card.term, userData.sets[currentDeck]._id,userData._id);
   userData = getUserData(userData.login.username);
 }
- function login(){
+ async function login(){
   console.log("here!");
-  async function verfy_login(u, p){
     userData = await verifyLogin(username,password);
     console.log(userData);
     if(userData == 0){
       alert("Invalid login");
     }  
-  }
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value; 
-  verify_login(username, password)
+  verifyLogin(username, password)
 }
 
 function onClick() {
