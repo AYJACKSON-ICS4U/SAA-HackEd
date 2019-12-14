@@ -19,28 +19,28 @@ app.get("/api/createuser/", async (req, res) => {
     }
 });
 
-app.get("/api/createset/", (req, res) => {
-    db.createSet(req.query.username,req.query.email,req.query.password);
+app.get("/api/createset/", async (req, res) => {
+    await db.createSet(req.query.username,req.query.email,req.query.password);
     res.send("Created a new set.");
 });
 
-app.get("/api/createcard/", (req, res) => {
-    db.createCard(req.query.definition,req.query.term,req.query.set,req.query.owner);
+app.get("/api/createcard/", async (req, res) => {
+    await db.createCard(req.query.definition,req.query.term,req.query.set,req.query.owner);
     res.send("Created a new card.");
 });
 
-app.get("/api/deleteuser/", (req, res) => {
-    db.deleteUser(req.query.username);
+app.get("/api/deleteuser/", async (req, res) => {
+    await db.deleteUser(req.query.username);
     res.send("Deleted a user.");
 });
 
-app.get("/api/deleteset/", (req, res) => {
-    db.deleteSet(req.query.owner, req.query.set);
+app.get("/api/deleteset/", async (req, res) => {
+    await db.deleteSet(req.query.owner, req.query.set);
     res.send("Deleted a set.");
 });
 
-app.get("/api/deletecard/", (req, res) => {
-    db.deleteCard(req.query.owner, req.query.set, req.query.card);
+app.get("/api/deletecard/", async (req, res) => {
+    await db.deleteCard(req.query.owner, req.query.set, req.query.card);
     res.send("Deleted a card.");
 });
 
