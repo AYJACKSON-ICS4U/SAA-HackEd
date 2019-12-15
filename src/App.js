@@ -1,14 +1,5 @@
 let userData;
 let currentDeck = 0;
-// var username;
-// var email;  
-// var password; 
-// var deckTitle; 
-// var deckDescription; 
-// var newDeckDescription; 
-// var newDeckTitle;
-// var term; 
-// var definition; 
 let right_answers = 0; 
 
 async function createDeck (){
@@ -19,16 +10,10 @@ async function createDeck (){
 
   await createSet(deck.deckName, deck.deckDescription, userData._id).then(async()=>{
     userData = await getUserData(userData.login.username);
-  currentDeck = userData.sets.length - 1;
+    currentDeck = userData.sets.length - 1;
   });
-  
-  
-  //decks.push(deck);
- // return deck; 
 }
 
-//sets[currentDeck].cards.length 
-//front= term, back=definition
 function loadDecks(){
     for(var i = 0; i < userData.sets.length; i++){
     deckContainer.innerHTML+=`<div class = "mydeck">
@@ -51,17 +36,20 @@ function addToDeck() {
   userData = getUserData(userData.login.username);
 }
  function login(){
-  console.log("here!");
-  async function verfy_login(u, p){
+  
+  async function doVerifyLogin(u, p){
+
     userData = await verifyLogin(username,password);
-    console.log(userData);
-    if(userData == 0){
+
+    console.log("data: " + userData);
+    if(userData == "0"){
       alert("Invalid login");
     }  
   }
+
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value; 
-  verify_login(username, password)
+  doVerifyLogin(username, password)
 }
 
 function onClick() {
@@ -70,13 +58,18 @@ function onClick() {
 
 }
 async function submit(){
-  console.log("yes");
   const username = document.getElementById("username").value; 
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value; 
 
-  await createUser(username,email,password).then(async()=>{
-     userData = await getUserData(username);
+  await createUser(username,email,password).then(async(response)=>{
+    console.log(response);
+    if(response != "0"){
+      userData = await getUserData(username);
+    }
+     else{
+       alert("User invalid. Try again.");
+     }
   });
   document.location = "homepage.html";
  }
@@ -85,8 +78,14 @@ async function submit(){
 async function getUserData(username) {
   const url = "https://pacific-inlet-67317.herokuapp.com/api/getuserdata?username=" + username;
   const user = await fetch(url);
-  const userInfo = await user.json();
-  return userInfo;
+    //get verify content type to tell if is json or text
+    const contentType = user.headers.get("content-type");
+    //send text if content is text, send json if content is json
+    if (contentType && contentType.indexOf("application/json") !== -1) {
+      return user.json();
+    } else {
+      return user.text();
+    }
 }
 
 async function createUser(username, email, password) {
@@ -94,7 +93,6 @@ async function createUser(username, email, password) {
   console.log(url);
   const createuser = await fetch(url);
   const created = await createuser.text();
-console.log(created);
   return created;
 }
 
@@ -120,6 +118,13 @@ async function deleteUser(username) {
 async function verifyLogin(username, password) {
   const url = "https://pacific-inlet-67317.herokuapp.com/api/verifylogin?username=" + username + "&password=" + password;
   const verify = await fetch(url);
-  return verify;
+  //get verify content type to tell if is json or text
+  const contentType = verify.headers.get("content-type");
+  //send text if content is text, send json if content is json
+  if (contentType && contentType.indexOf("application/json") !== -1) {
+    return verify.json();
+  } else {
+    return verify.text();
+  }
 }
 
