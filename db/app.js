@@ -15,7 +15,7 @@ app.get("/api/createuser/", async (req, res) => {
             res.send("Created a new user.");
     }
     else{
-        res.send(null);
+        res.send(0);
     }
 });
 
@@ -53,7 +53,10 @@ app.get("/api/verifylogin/", async (req, res) => {
 app.get("/api/getuserdata/", async (req, res) => {
     var status = await db.getUserData(req.query.username);
     //send user info back to frontend
-    res.send(status);
+    if(status == null){
+        res.send(0);
+    }
+  res.send(status)
 });
 
 //set port
