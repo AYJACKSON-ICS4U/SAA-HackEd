@@ -2,7 +2,6 @@
 <head>
   <title>FlashTime</title>
   <script src="App.js"></script>
-  <script src="carddisplay.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -10,25 +9,23 @@
   <link href="https://fonts.googleapis.com/css?family=Faster+One&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body onload="attachHandler()">
+<body onload = "attachHandler(5)">
   <div class="home_header">
     <h1 class="text-center">FlashTime</h1>
   </div>
   <img src="home_background.png">
-  <div class="flash_card">
+  <div id = "card-container">
+<div class="flash_card">
     <div class="card" style="width: 20rem; height: 20rem">
-      <div class="card-body">
-        <h5 class="card-title">Term</h5>
-        <h5 class="card-title">Card title This is obviously content this is real content not placeholder content no not at all</h5>
-        <div class="text-center">
-            <button class="btn btn-danger">Wrong</button>
-          <button class="btn btn-primary">Flip</button>
-          <button class="btn btn-primary">--></button>
-          <button class="btn btn-success" onClick="onClick()">Right</button>
-        </div>
+      <div class="card-body" id='card-body'>
       </div>
+      <button class="btn btn-primary ml-5 mr-5" id="flip-button">Flip</button>
+      <button class="btn btn-success ml-5 mr-5 mt-2 mb-2" id="next-card-button">Next</button>
+
     </div>
   </div>
+
+</div>
   <div class="results">
     <button class="btn btn-warning">Results</button>
   </div>

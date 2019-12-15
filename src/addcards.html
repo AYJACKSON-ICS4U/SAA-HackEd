@@ -2,7 +2,6 @@
 <head>
   <title>FlashTime</title>
   <script src="App.js"></script>
-  <script src="addcards.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -10,13 +9,12 @@
   <link href="https://fonts.googleapis.com/css?family=Faster+One&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body onload="attachHandler()">
+<body onload="attachHandler(4)">
     <div class = "home_header">
         <h1 class="text-center">FlashTime</h1>
       </div>
       <img src = "home_background.png">
       <div class="create_card">
-      <form>
           <div class="form-group">
             <input class="form-control" id="term" placeholder="Term">
           </div>
@@ -24,8 +22,7 @@
             <input  class="form-control" id="definition" placeholder="Definition">
           </div>
         <button type="submit" class="btn btn-primary" id="addToDeck">+ Add to Deck</button>
-          <button class="btn btn-primary" id="done">Done</button>
-        </form>
+          <button class = "btn btn-primary" id="done">Done</button>
       </div>
     </div>
 </body>

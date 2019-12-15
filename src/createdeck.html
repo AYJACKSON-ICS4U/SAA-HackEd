@@ -3,7 +3,6 @@
 <head>
   <title>FlashTime</title>
   <script src="App.js"></script>
-  <script src="createdeck.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -12,7 +11,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 
-<body onload="attachHandler()">
+<body onload="attachHandler(3)">
   <div class="home_header">
     <h1 class="text-center">FlashTime</h1>
   </div>
@@ -25,7 +24,7 @@
       <div class="form-group">
         <input class="form-control" id="deckDescription" placeholder="Description ">
       </div>
-      <a href="addcards.html" class="btn btn-primary" type="button" id="createDeckButton"> + Create Deck</a>
+      <button class="btn btn-primary" type="button" id="createDeckButton"> + Create Deck</button>
     </form>
   </div>
 </body>
