@@ -157,7 +157,7 @@ async function login() {
   userData = await verifyLogin(username, password);
   console.log(userData);
   localStorage.setItem("currentUser", JSON.stringify(userData));
-  if (userData == 0) {
+  if (userData == "0") {
     alert("Invalid login");
   } else {
     document.location = "homepage.html";
@@ -174,14 +174,21 @@ function createDeckPage() {
 }
 
 async function submit() {
-  console.log("yes");
+ // console.log("yes");
   const username = document.getElementById("username").value;
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
-  await createUser(username, email, password).then(async () => {
-    userData = await getUserData(username);
-  });
+  await createUser(username,email,password).then(async(response)=>{
+    userData = await getUserData(username);	    
+    console.log(response);
+   if(response != "0"){
+     userData = await getUserData(username);
+   }
+    else{
+      alert("User invalid. Try again.");
+    }
+ });	  });
   document.location = "homepage.html";
 }
 
@@ -258,6 +265,12 @@ async function verifyLogin(username, password) {
     "&password=" +
     password;
   const verify = await fetch(url);
-  const ud = await verify.json();
-  return ud;
+  //get verify content type to tell if is json or text
+  const contentType = verify.headers.get("content-type");
+  //send text if content is text, send json if content is json
+  if (contentType && contentType.indexOf("application/json") !== -1) {
+    return verify.json();
+  } else {
+    return verify.text();
+  }
 }
