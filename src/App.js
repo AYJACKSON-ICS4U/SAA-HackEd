@@ -38,10 +38,10 @@ async function signup() {
 
   //create a user with these params
   await createUser(username, email, password).then(async (res) => {
-    
-    if(res != "0"){
-      const userData = await getUserData(username);
+     const userData = await getUserData(username);
       localStorage.setItem("currentUser", JSON.stringify(userData));
+    if(res != "0"){
+     
       //send them to homepage
        document.location = "homepage.html";
     }
