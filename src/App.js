@@ -23,8 +23,8 @@ function attachHandler(pageid) {
     document
       .getElementById("next-card-button")
       .addEventListener("click", nextCardDisplay);
-
     loadCards();
+    document.getElementById("back").addEventListener("click", returnHome);
   }
 }
 async function signup() {
@@ -75,11 +75,12 @@ async function createDeck() {
   }
 }
 
+function returnHome() {
+  document.location = "homepage.html";
+}
 function loadDecks() {
   localStorage.setItem("currentCard", 0);
-
   const ud = JSON.parse(localStorage.getItem("currentUser"));
-
   const deckContainer = document.getElementById("deck-container");
   for (var i = 0; i < ud.sets.length; i++) {
     deckContainer.innerHTML += `<div class = "mydeck">
