@@ -78,6 +78,7 @@ async function createDeck() {
 function returnHome() {
   document.location = "homepage.html";
 }
+
 function loadDecks() {
   localStorage.setItem("currentCard", 0);
   const ud = JSON.parse(localStorage.getItem("currentUser"));
@@ -189,7 +190,7 @@ async function submit() {
     else{
       alert("User invalid. Try again.");
     }
- });	  });
+ 	  });
   document.location = "homepage.html";
 }
 
