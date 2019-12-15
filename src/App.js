@@ -1,3 +1,4 @@
+//handlers for objects (DOM) for each page
 function attachHandler(pageid) {
   if (pageid === 1) {
     document.getElementById("submitButton").addEventListener("click", signup);
@@ -27,20 +28,33 @@ function attachHandler(pageid) {
     document.getElementById("back").addEventListener("click", returnHome);
   }
 }
+
+//when user signs up
 async function signup() {
-  console.log("yes");
+  // get vars from html forms
   const username = document.getElementById("username").value;
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
-  await createUser(username, email, password).then(async () => {
-    const userData = await getUserData(username);
-    localStorage.setItem("currentUser", JSON.stringify(userData));
+  //create a user with these params
+  await createUser(username, email, password).then(async (res) => {
+    
+    if(res != "0"){
+      const userData = await getUserData(username);
+      localStorage.setItem("currentUser", JSON.stringify(userData));
+      //send them to homepage
+       document.location = "homepage.html";
+    }
+    else{
+      alert("Invalid!");
+    }
   });
-  document.location = "homepage.html";
+ 
 }
 
+//create user by calling api
 async function createUser(username, email, password) {
+  //set url and send username, email and password, as req querys
   const url =
     "https://pacific-inlet-67317.herokuapp.com/api/createuser?username=" +
     username +
@@ -49,12 +63,14 @@ async function createUser(username, email, password) {
     "&email=" +
     email;
   console.log(url);
+    //fetch
   const createuser = await fetch(url);
   const created = await createuser.text();
   console.log(created);
   return created;
 }
 
+//create deck and push to local storage
 async function createDeck() {
   const deck = {
     deckName: document.getElementById("deckName").value,
@@ -75,10 +91,12 @@ async function createDeck() {
   }
 }
 
+//set html page to home on click
 function returnHome() {
   document.location = "homepage.html";
 }
 
+//load users decks into local storage from database
 function loadDecks() {
   localStorage.setItem("currentCard", 0);
   const ud = JSON.parse(localStorage.getItem("currentUser"));
@@ -95,10 +113,12 @@ function loadDecks() {
   }
 }
 
+//go to decks page on click
 function goToDecks() {
   document.location = "homepage.html";
 }
 
+//get the next card in the deck to display
 function nextCardDisplay() {
   const cardind = 1 + Number.parseInt(localStorage.getItem("currentCard"));
   const ud = JSON.parse(localStorage.getItem("currentUser"));
@@ -111,6 +131,7 @@ function nextCardDisplay() {
     loadCards();
   }
 }
+//load cards in a deck onto local storage from db
 function loadCards() {
   console.log("doc.loc:" + document.location);
   const spliturl = document.location.href.split("=");
@@ -132,6 +153,7 @@ function loadCards() {
   localStorage.setItem("isfront", isfront ? "false" : "true");
 }
 
+//add card to deck on local storage and on database
 async function addToDeck() {
   console.log("addToDeck is called");
   const card = {
@@ -153,51 +175,65 @@ async function addToDeck() {
     document.location = "addcards.html";
   }
 }
+
+//login and verify user
 async function login() {
+  //get parameters
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
   userData = await verifyLogin(username, password);
   console.log(userData);
+  //set local storage
   localStorage.setItem("currentUser", JSON.stringify(userData));
   if (userData == "0") {
     alert("Invalid login");
   } else {
+    //redirect if login correct
     document.location = "homepage.html";
   }
 }
 
+//get grade
 function grade() {
   right_answers += 1;
   console.log(right_answers);
 }
 
+//switch page to page for creating decks
 function createDeckPage() {
   document.location = "createdeck.html";
 }
 
 async function submit() {
  // console.log("yes");
+  // get vars from html forms
   const username = document.getElementById("username").value;
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
+  //create a user with these params
   await createUser(username,email,password).then(async(response)=>{
     userData = await getUserData(username);	    
     console.log(response);
    if(response != "0"){
      userData = await getUserData(username);
+      //send them to homepage
+  document.location = "homepage.html";
    }
     else{
       alert("User invalid. Try again.");
     }
  	  });
-  document.location = "homepage.html";
+ 
 }
 
+//get user data from api
 async function getUserData(username) {
+  //send username as param in url
   const url =
     "https://pacific-inlet-67317.herokuapp.com/api/getuserdata?username=" +
     username;
+  //fetch
   const user = await fetch(url);
     //get verify content type to tell if is json or text
     const contentType = user.headers.get("content-type");
@@ -209,7 +245,9 @@ async function getUserData(username) {
     }
 }
 
+//create user by calling api
 async function createUser(username, email, password) {
+  //set url and send params in req
   const url =
     "https://pacific-inlet-67317.herokuapp.com/api/createuser?username=" +
     username +
@@ -218,13 +256,16 @@ async function createUser(username, email, password) {
     "&email=" +
     email;
   console.log(url);
+  //fetch and send
   const createuser = await fetch(url);
   const created = await createuser.text();
   console.log(created);
   return created;
 }
 
+//create set by calling api
 async function createSet(title, description, owner) {
+  //send params in req 
   const url =
     "https://pacific-inlet-67317.herokuapp.com/api/createset?title=" +
     title +
@@ -232,12 +273,15 @@ async function createSet(title, description, owner) {
     description +
     "&owner=" +
     owner;
+  //fetch and send
   const createSet = await fetch(url);
   const response = await createSet.text();
   return response;
 }
 
+//call api to create card
 async function createCard(definition, term, setindex, owner) {
+   //set url and send term, defenition, owner and set
   const url =
     "https://pacific-inlet-67317.herokuapp.com/api/createcard?term=" +
     term +
@@ -247,25 +291,32 @@ async function createCard(definition, term, setindex, owner) {
     owner +
     "&set=" +
     setindex;
+  //fetch and return response
   const createCard = await fetch(url);
   const response = await createCard.text();
   return response;
 }
 
+//delete call database to user
 async function deleteUser(username) {
+  //set the url and send given username as req query 
   const url =
     "https://pacific-inlet-67317.herokuapp.com/api/deleteuser?username=" +
     username;
+  //fetch and return res
   const deleteUser = await fetch(url);
   return deleteUser;
 }
 
+//verify if a user exists and if correct password was entered
 async function verifyLogin(username, password) {
+  //set url and send username and password as req querys
   const url =
     "https://pacific-inlet-67317.herokuapp.com/api/verifylogin?username=" +
     username +
     "&password=" +
     password;
+  //fetch
   const verify = await fetch(url);
   //get verify content type to tell if is json or text
   const contentType = verify.headers.get("content-type");
