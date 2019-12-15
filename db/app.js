@@ -47,7 +47,7 @@ app.get("/api/deletecard/", async (req, res) => {
 app.get("/api/verifylogin/", async (req, res) => {
     var status = await db.verifyLogin(req.query.username, req.query.password);
     //send the user info through login back to frontend
-    res.send(status);
+    res.send(await status);
 });
 
 app.get("/api/getuserdata/", async (req, res) => {
@@ -56,7 +56,7 @@ app.get("/api/getuserdata/", async (req, res) => {
     if(status == null){
         res.send("0");
     }
-  res.send(status)
+  res.send(await status)
 });
 
 //set port
