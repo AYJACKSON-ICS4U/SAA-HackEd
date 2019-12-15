@@ -190,8 +190,14 @@ async function getUserData(username) {
     "https://pacific-inlet-67317.herokuapp.com/api/getuserdata?username=" +
     username;
   const user = await fetch(url);
-  const userInfo = await user.json();
-  return userInfo;
+    //get verify content type to tell if is json or text
+    const contentType = user.headers.get("content-type");
+    //send text if content is text, send json if content is json
+    if (contentType && contentType.indexOf("application/json") !== -1) {
+      return user.json();
+    } else {
+      return user.text();
+    }
 }
 
 async function createUser(username, email, password) {
