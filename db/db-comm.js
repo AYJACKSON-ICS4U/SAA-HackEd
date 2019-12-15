@@ -130,7 +130,7 @@ module.exports = {
         }
       }
       //return 0 if does not return within if
-      return null;
+      return 0;
   }
 }
 
