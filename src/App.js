@@ -99,6 +99,8 @@ function returnHome() {
 //load users decks into local storage from database
 function loadDecks() {
   localStorage.setItem("currentCard", 0);
+  localStorage.setItem("isfront", true);
+
   const ud = JSON.parse(localStorage.getItem("currentUser"));
   const deckContainer = document.getElementById("deck-container");
   for (var i = 0; i < ud.sets.length; i++) {
