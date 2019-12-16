@@ -20,7 +20,7 @@ app.get("/api/createuser/", async (req, res) => {
 });
 
 app.get("/api/createset/", async (req, res) => {
-    await db.createSet(req.query.username,req.query.email,req.query.password);
+    await db.createSet(req.query.title,req.query.description,req.query.owner);
     res.send("Created a new set.");
 });
 
