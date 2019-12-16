@@ -143,6 +143,7 @@ function loadCards() {
   if (!currentCardInd) {
     currentCardInd = 0;
     localStorage.setItem("currentCard", currentCardInd);
+    localStorage.setItem("isfront", true);
   }
   const card = ud.sets[deckid].cards[currentCardInd];
   const isfront = "true" === localStorage.getItem("isfront");
