@@ -136,6 +136,7 @@ function loadCards() {
   console.log("doc.loc:" + document.location);
   const spliturl = document.location.href.split("=");
   const deckid = Number.parseInt(spliturl[1]);
+  localStorage.setItem("currentDeck",deckid);
   const ud = JSON.parse(localStorage.getItem("currentUser"));
   // const currentDeckInd = localStorage.getItem("currentDeck");
   let currentCardInd = localStorage.getItem("currentCard");
