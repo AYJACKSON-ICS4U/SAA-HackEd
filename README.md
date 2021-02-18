@@ -13,10 +13,8 @@ For more information about Flashtime and it's development, visit [our Wiki](http
 ## Developers
 This app was developed by the following ICS4U students:
 ### Anoushka Jawale
-- Created the front-end
+
 ### Sabrina Button
-- Created the back-end and connections to MongoDB
-- Handled hosting
+
 ### Abinaya Nandan
-- Created the wiki
 
